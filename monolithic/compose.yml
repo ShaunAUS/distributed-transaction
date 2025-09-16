@@ -1,0 +1,9 @@
+services:
+  mysql:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 12341234
+      MYSQL_DATABASE: distributed
+    ports:
+      - "3306:3306"
