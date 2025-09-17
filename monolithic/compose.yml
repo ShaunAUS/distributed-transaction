@@ -7,3 +7,15 @@ services:
       MYSQL_DATABASE: distributed
     ports:
       - "3306:3306"
+
+  redis:
+    image: redis:7.2-alpine
+    restart: always
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+
+volumes:
+  redis_data:
