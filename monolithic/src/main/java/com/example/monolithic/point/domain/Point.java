@@ -22,7 +22,7 @@ public class Point {
         this.amount = amount;
     }
 
-    public void use(Long amount) {
+    public void reduce(Long amount) {
         if (this.amount < amount) {
             throw new RuntimeException("포인트가 부족합니다.");
         }

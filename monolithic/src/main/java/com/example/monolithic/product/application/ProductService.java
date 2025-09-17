@@ -20,7 +20,7 @@ public class ProductService {
                 .orElseThrow(() -> new RuntimeException("데이터가 존재하지 않습니다."));
 
         Long totalPrice = product.calculatePrice(quantity);
-        product.buy(quantity);
+        product.reduceQuantity(quantity);
 
         productRepository.save(product);
         return totalPrice;

@@ -22,7 +22,7 @@ public class PointService {
             throw new RuntimeException("포인트 데이터가 존재하지 않습니다.");
         }
 
-        point.use(amount);
+        point.reduce(amount);
         pointRepository.save(point);
 
     }
