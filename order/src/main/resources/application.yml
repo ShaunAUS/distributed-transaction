@@ -6,7 +6,7 @@ spring:
     database-platform: org.hibernate.dialect.MySQLDialect
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/distributed
+    url: jdbc:mysql://127.0.0.1:3309/order_example
     username: root
     password: 12341234
   docker:
@@ -14,4 +14,4 @@ spring:
       enabled: false
 
 server:
-  port: 8083
+  port: 8080

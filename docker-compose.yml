@@ -1,0 +1,94 @@
+services:
+  # Monolithic module services
+  monolithic-mysql:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 12341234
+      MYSQL_DATABASE: distributed
+    ports:
+      - "3306:3306"
+    volumes:
+      - monolithic_mysql_data:/var/lib/mysql
+
+  monolithic-redis:
+    image: redis:7.2-alpine
+    restart: always
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - monolithic_redis_data:/data
+
+  # Order module services
+  order-mysql:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 12341234
+      MYSQL_DATABASE: order_example
+    ports:
+      - "3309:3306"
+    volumes:
+      - order_mysql_data:/var/lib/mysql
+
+  order-redis:
+    image: redis:7.2-alpine
+    restart: always
+    ports:
+      - "6382:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - order_redis_data:/data
+
+  # Product module services
+  product-mysql:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 12341234
+      MYSQL_DATABASE: product_example
+    ports:
+      - "3307:3306"
+    volumes:
+      - product_mysql_data:/var/lib/mysql
+
+  product-redis:
+    image: redis:7.2-alpine
+    restart: always
+    ports:
+      - "6380:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - product_redis_data:/data
+
+  # Point module services
+  point-mysql:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 12341234
+      MYSQL_DATABASE: point_example
+    ports:
+      - "3308:3306"
+    volumes:
+      - point_mysql_data:/var/lib/mysql
+
+  point-redis:
+    image: redis:7.2-alpine
+    restart: always
+    ports:
+      - "6381:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - point_redis_data:/data
+
+volumes:
+  monolithic_mysql_data:
+  monolithic_redis_data:
+  order_mysql_data:
+  order_redis_data:
+  product_mysql_data:
+  product_redis_data:
+  point_mysql_data:
+  point_redis_data:
