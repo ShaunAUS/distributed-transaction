@@ -2,7 +2,7 @@ services:
   # Monolithic module services
   monolithic-mysql:
     image: mysql:8.0
-    restart: always
+    restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: 12341234
       MYSQL_DATABASE: distributed
@@ -10,20 +10,30 @@ services:
       - "3306:3306"
     volumes:
       - monolithic_mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p12341234"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   monolithic-redis:
     image: redis:7.2-alpine
-    restart: always
+    restart: unless-stopped
     ports:
       - "6379:6379"
     command: redis-server --appendonly yes
     volumes:
       - monolithic_redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   # Order module services
   order-mysql:
     image: mysql:8.0
-    restart: always
+    restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: 12341234
       MYSQL_DATABASE: order_example
@@ -31,20 +41,30 @@ services:
       - "3309:3306"
     volumes:
       - order_mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p12341234"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   order-redis:
     image: redis:7.2-alpine
-    restart: always
+    restart: unless-stopped
     ports:
       - "6382:6379"
     command: redis-server --appendonly yes
     volumes:
       - order_redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   # Product module services
   product-mysql:
     image: mysql:8.0
-    restart: always
+    restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: 12341234
       MYSQL_DATABASE: product_example
@@ -52,20 +72,30 @@ services:
       - "3307:3306"
     volumes:
       - product_mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p12341234"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   product-redis:
     image: redis:7.2-alpine
-    restart: always
+    restart: unless-stopped
     ports:
       - "6380:6379"
     command: redis-server --appendonly yes
     volumes:
       - product_redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   # Point module services
   point-mysql:
     image: mysql:8.0
-    restart: always
+    restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: 12341234
       MYSQL_DATABASE: point_example
@@ -73,15 +103,25 @@ services:
       - "3308:3306"
     volumes:
       - point_mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p12341234"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   point-redis:
     image: redis:7.2-alpine
-    restart: always
+    restart: unless-stopped
     ports:
       - "6381:6379"
     command: redis-server --appendonly yes
     volumes:
       - point_redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
   monolithic_mysql_data:
